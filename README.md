@@ -175,12 +175,6 @@ Hosted on **MongoDB Atlas**
 
 ---
 
-## 📸 Screenshots
-
-_Add screenshots after deployment_
-
----
-
 ## 👨‍💻 Author
 
 **Aaditya Singh**

@@ -13,7 +13,10 @@ const app = express();
 // ✅ Proper CORS setup (ONLY ONCE)
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://link-manager-pro-dhpg.vercel.app",
+    ],
     credentials: true,
   })
 );

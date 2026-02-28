@@ -1,11 +1,11 @@
 import axios from "axios";
-import API from "../api";
+import BASE_URL from "../api";
 
-const API = axios.create({
-  baseURL: `${API}/api`,
+const api = axios.create({
+  baseURL: `${BASE_URL}/api`,
 });
 
-API.interceptors.request.use((req) => {
+api.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -15,14 +15,19 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const getVideos = () => API.get("/videos");
-export const addVideo = (data) => API.post("/videos", data);
+export const getVideos = () => api.get("/videos");
+
+export const addVideo = (data) =>
+  api.post("/videos", data);
+
 export const updateVideo = (id, data) =>
-  API.put(`/videos/${id}`, data);
+  api.put(`/videos/${id}`, data);
+
 export const deleteVideo = (id) =>
-  API.delete(`/videos/${id}`);
+  api.delete(`/videos/${id}`);
+
 export const searchByTitle = (title) =>
-  API.get(`/videos/search/${title}`);
+  api.get(`/videos/search/${title}`);
 
 export const getPreview = (url) =>
-  API.get(`/videos/preview?url=${encodeURIComponent(url)}`);
+  api.get(`/videos/preview?url=${encodeURIComponent(url)}`);

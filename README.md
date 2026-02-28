@@ -14,6 +14,7 @@
 <p align="center">
   <img src="https://skillicons.dev/icons?i=react,nodejs,express,mongodb,js,html,css,vercel,render,git" />
 </p>
+
 ---
 
 # 🚀 Link Manager Pro
@@ -24,8 +25,8 @@ A modern full-stack MERN application to save, organize, and manage your favorite
 
 ## 🌐 Live Demo
 
-- 🔗 Frontend: https://your-vercel-url.vercel.app  
-- 🔗 Backend API: https://your-render-url.onrender.com  
+- 🔗 Frontend: [https://your-vercel-url.vercel.app  ](https://link-manager-pro-b4zv.vercel.app/)
+- 🔗 Backend API: [https://your-render-url.onrender.com  ](https://linkmanagerpro.onrender.com/)
 
 ---
 

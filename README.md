@@ -1,62 +1,63 @@
+
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,100:00C6FF&height=200&section=header&text=Link%20Manager%20Pro&fontSize=40&fontColor=ffffff&animation=fadeIn&fontAlignY=35" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,100:00C6FF&height=220&section=header&text=Link%20Manager%20Pro&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=35" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react" />
-  <img src="https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js" />
-  <img src="https://img.shields.io/badge/Database-MongoDB-darkgreen?style=for-the-badge&logo=mongodb" />
-  <img src="https://img.shields.io/badge/Auth-JWT-orange?style=for-the-badge&logo=jsonwebtokens" />
-  <img src="https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel" />
-  <img src="https://img.shields.io/badge/Deploy-Render-purple?style=for-the-badge&logo=render" />
+  <img src="https://img.shields.io/badge/MERN-Stack-success?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Status-Live-brightgreen?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge"/>
+</p>
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=react,nodejs,express,mongodb,js,html,css,vercel,render,git" />
 </p>
 
 ---
 
 # 🚀 Link Manager Pro
 
-A modern full-stack MERN application to save, organize, and manage your favorite links with authentication, Google login, admin controls, and a clean animated UI.
+A production-ready **Full Stack MERN Application** to manage, organize, and secure your favorite links with authentication, Google login, admin dashboard, and modern animated UI.
 
 ---
 
 ## 🌐 Live Demo
 
-- 🔗 Frontend: [https://your-vercel-url.vercel.app  ](https://link-manager-pro-b4zv.vercel.app/)
-- 🔗 Backend API: [https://your-render-url.onrender.com  
-](https://linkmanagerpro.onrender.com/)
+- 🔗 Frontend: https://your-vercel-url.vercel.app  
+- 🔗 Backend API: https://your-render-url.onrender.com  
+
 ---
 
-## ✨ Features
+## ✨ Core Features
 
 ### 🔐 Authentication
-- Register / Login (JWT based)
-- Google OAuth Login
-- Protected routes
-- Role-based access (User / Admin)
-- Secure logout
+- JWT Login & Register
+- Google OAuth
+- Protected Routes
+- Role-Based Access (Admin / User)
+- Secure Logout
 
 ### 📌 Link Management
-- Add links
-- Edit links
-- Delete links
+- Add / Edit / Delete links
 - Search by title
 - Sort by name & category
-- Auto link preview scraper
-- Copy link to clipboard
+- Link preview scraping
+- Copy to clipboard
+- Animated 3D hover cards
 
 ### 👨‍💼 Admin Dashboard
 - View all users
 - Promote / Demote users
 - Ban / Unban users
 - Delete users
-- Track user online status
+- Online status tracking
 
 ### 🎨 UI / UX
 - Glassmorphism design
-- Smooth page animations (Framer Motion)
+- Smooth animations (Framer Motion)
 - Avatar upload
 - Responsive layout
-- Hover 3D card effects
+- Clean modern design
 
 ---
 
@@ -88,11 +89,11 @@ A modern full-stack MERN application to save, organize, and manage your favorite
 ```
 LinkManagerPro/
 │
-├── client/        # React frontend
+├── client/
 │   ├── src/
 │   └── ...
 │
-├── server/        # Express backend
+├── server/
 │   ├── routes/
 │   ├── controllers/
 │   ├── models/
@@ -105,38 +106,34 @@ LinkManagerPro/
 
 ## ⚙️ Local Setup
 
-### 1️⃣ Clone Repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/your-username/LinkManagerPro.git
 cd LinkManagerPro
 ```
 
----
-
-### 2️⃣ Setup Backend
+### Backend Setup
 
 ```bash
 cd server
 npm install
 ```
 
-Create `.env` file inside `/server`:
+Create `.env`:
 
 ```
-MONGO_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_secret_key
 ```
 
-Run backend:
+Run:
 
 ```bash
 npm run dev
 ```
 
----
-
-### 3️⃣ Setup Frontend
+### Frontend Setup
 
 ```bash
 cd client
@@ -146,33 +143,20 @@ npm run dev
 
 ---
 
-## 🔐 Environment Variables
+## 📊 GitHub Stats
 
-### Backend (.env)
-
-```
-MONGO_URI=
-JWT_SECRET=
-```
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=your-username&show_icons=true&theme=tokyonight" height="150"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=your-username&theme=tokyonight" height="150"/>
+</p>
 
 ---
 
-## 🚀 Deployment
+## 📈 Contribution Graph
 
-### Frontend
-Deployed on **Vercel**
-
-### Backend
-Deployed on **Render**
-
-### Database
-Hosted on **MongoDB Atlas**
-
----
-
-## 📸 Screenshots
-
-_Add screenshots after deployment_
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=your-username&theme=tokyo-night"/>
+</p>
 
 ---
 
@@ -181,14 +165,15 @@ _Add screenshots after deployment_
 **Aaditya Singh**
 
 - GitHub: https://github.com/your-username  
-- LinkedIn: Add your LinkedIn here  
+- LinkedIn: Add your LinkedIn  
 
 ---
 
 <p align="center">
-  ⭐ If you like this project, give it a star on GitHub!
+  ⭐ If you like this project, give it a star!
 </p>
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,100:00C6FF&height=120&section=footer"/>
 </p>
+

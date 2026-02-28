@@ -13,7 +13,7 @@ useEffect(() => {
 const fetchUsers = async () => {
   try {
     const res = await axios.get(
-      "`${API}/api/auth/admin/users`",
+      `${API}/api/auth/admin/users`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`

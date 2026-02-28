@@ -17,6 +17,20 @@ import {
 function App() {
   const navigate = useNavigate();
 
+  // ✅ Parse user safely FIRST
+  let user = null;
+  try {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser && storedUser !== "undefined") {
+      user = JSON.parse(storedUser);
+    }
+  } catch (err) {
+    console.error("Invalid user in localStorage");
+    localStorage.removeItem("user");
+  }
+
+  // STATES
+  const [avatar, setAvatar] = useState(user?.avatar || "");
   const [videos, setVideos] = useState([]);
   const [search, setSearch] = useState("");
   const [sortOption, setSortOption] = useState("");
@@ -24,43 +38,6 @@ function App() {
   const [preview, setPreview] = useState(null);
   const [loadingPreview, setLoadingPreview] = useState(false);
   const [copiedId, setCopiedId] = useState(null);
- 
-
-  const handleAvatarChange = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onloadend = async () => {
-    const base64Image = reader.result;
-
-    try {
-      const res = await axios.put(
-        `${API}/api/auth/avatar`,
-        { avatar: base64Image },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
-        }
-      );
-
-      setAvatar(res.data.avatar);
-
-      const updatedUser = {
-        ...user,
-        avatar: res.data.avatar
-      };
-
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  reader.readAsDataURL(file);
-};
 
   const [form, setForm] = useState({
     title: "",
@@ -69,24 +46,7 @@ function App() {
     description: "",
   });
 
-  // Safe user parsing
-  let user = null;
-
-try {
-  const storedUser = localStorage.getItem("user");
-  if (storedUser && storedUser !== "undefined") {
-    user = JSON.parse(storedUser);
-  }
-} catch (err) {
-  console.error("Invalid user in localStorage");
-  localStorage.removeItem("user");
-}
-
- const [avatar, setAvatar] = useState(user?.avatar || "");
-
-
-
-  // 🔐 Protect route + fetch videos
+  // 🔐 Protect route
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -97,7 +57,7 @@ try {
     }
   }, []);
 
-  // Fetch videos
+  // FETCH VIDEOS
   const fetchVideos = async () => {
     try {
       const res = await getVideos();
@@ -107,40 +67,74 @@ try {
     }
   };
 
-  // Logout
-const handleLogout = async () => {
-  try {
-    await axios.post(
-      `${API}/api/auth/logout`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+  // LOGOUT
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        `${API}/api/auth/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  // AVATAR CHANGE
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onloadend = async () => {
+      try {
+        const res = await axios.put(
+          `${API}/api/auth/avatar`,
+          { avatar: reader.result },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        setAvatar(res.data.avatar);
+
+        const updatedUser = {
+          ...user,
+          avatar: res.data.avatar,
+        };
+
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      } catch (err) {
+        console.log(err);
       }
-    );
-  } catch (err) {
-    console.log(err);
-  }
+    };
 
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+    reader.readAsDataURL(file);
+  };
 
-  navigate("/login");
-};
-
-  // Search
+  // SEARCH
   const handleSearch = async () => {
-  if (!search.trim()) {
-    fetchVideos();
-    return;
-  }
+    if (!search.trim()) {
+      fetchVideos();
+      return;
+    }
 
-  const res = await searchByTitle(search);
-  setVideos(res.data);
-};
+    const res = await searchByTitle(search);
+    setVideos(res.data);
+  };
 
-  // Add / Update
+  // SUBMIT (ADD / UPDATE)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -162,29 +156,25 @@ const handleLogout = async () => {
     fetchVideos();
   };
 
-  // Delete
+  // DELETE
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this video?"
-    );
-    if (!confirmDelete) return;
-
+    if (!window.confirm("Delete this video?")) return;
     await deleteVideo(id);
     fetchVideos();
   };
 
-  // Copy link
+  // COPY LINK
   const handleCopy = async (link, id) => {
     try {
       await navigator.clipboard.writeText(link);
       setCopiedId(id);
       setTimeout(() => setCopiedId(null), 1500);
     } catch (err) {
-      console.error("Copy failed", err);
+      console.error(err);
     }
   };
 
-  // Sorting
+  // SORTING
   const sortedVideos = [...videos].sort((a, b) => {
     if (sortOption === "name-asc")
       return a.title.localeCompare(b.title);
@@ -203,8 +193,7 @@ const handleLogout = async () => {
 
   return (
     <div className={styles.container}>
-      
-      {/* ✅ NAVBAR */}
+      {/* NAVBAR */}
       <div className={styles.navbar}>
         <div className={styles.navLeft}>
           <h2 className={styles.logo}>Link Manager Pro</h2>
@@ -216,22 +205,21 @@ const handleLogout = async () => {
           </span>
 
           <label className={styles.avatarWrapper}>
-  <img
-    src={
-      avatar ||
-      `https://ui-avatars.com/api/?name=${user?.name}`
-    }
-    alt="avatar"
-    className={styles.avatar}
-  />
-
-  <input
-    type="file"
-    accept="image/*"
-    onChange={handleAvatarChange}
-    hidden
-  />
-</label>
+            <img
+              src={
+                avatar ||
+                `https://ui-avatars.com/api/?name=${user?.name}`
+              }
+              alt="avatar"
+              className={styles.avatar}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleAvatarChange}
+            />
+          </label>
 
           <button
             className={styles.logoutBtn}
@@ -248,9 +236,7 @@ const handleLogout = async () => {
           placeholder="Search by title..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleSearch();
-          }}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           className={styles.searchInput}
         />
 
@@ -361,37 +347,12 @@ const handleLogout = async () => {
       <div className={styles.grid}>
         {sortedVideos.map((video) => (
           <motion.div
-  key={video._id}
-  className={styles.card}
-  style={{ perspective: 1000 }}
-  whileHover={{ scale: 1.05 }}
-  onMouseMove={(e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = (y - centerY) / 20;
-    const rotateY = (centerX - x) / 20;
-
-    e.currentTarget.style.transform =
-      `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.transform =
-      "rotateX(0deg) rotateY(0deg) scale(1)";
-  }}
->
-            <div className={styles.title}>
-              {video.title}
-            </div>
-
-            <div className={styles.category}>
-              {video.category}
-            </div>
-
+            key={video._id}
+            className={styles.card}
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className={styles.title}>{video.title}</div>
+            <div className={styles.category}>{video.category}</div>
             <div className={styles.description}>
               {video.description || "No description"}
             </div>

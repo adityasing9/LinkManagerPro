@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API from "../api";
 import axios from "axios";
 
 function Admin() {
@@ -12,7 +13,7 @@ useEffect(() => {
 const fetchUsers = async () => {
   try {
     const res = await axios.get(
-      "http://localhost:5000/api/auth/admin/users",
+      "`${API}/api/auth/admin/users`",
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -32,7 +33,7 @@ const fetchUsers = async () => {
     if (!window.confirm("Delete this user?")) return;
 
     await axios.delete(
-      `http://localhost:5000/api/auth/admin/user/${id}`,
+      `${API}/api/auth/admin/user/${id}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -45,7 +46,7 @@ const fetchUsers = async () => {
 
   const changeRole = async (id) => {
     await axios.put(
-      `http://localhost:5000/api/auth/admin/user/role/${id}`,
+      `${API}/api/auth/admin/user/role/${id}`,
       {},
       {
         headers: {
@@ -59,7 +60,7 @@ const fetchUsers = async () => {
 
   const toggleBan = async (id) => {
     await axios.put(
-      `http://localhost:5000/api/auth/admin/user/ban/${id}`,
+      `${API}/api/auth/admin/user/ban/${id}`,
       {},
       {
         headers: {
@@ -74,7 +75,7 @@ const fetchUsers = async () => {
   const handleLogout = async () => {
   try {
     await axios.post(
-      "http://localhost:5000/api/auth/logout",
+      `${API}/api/auth/logout`,
       {},
       {
         headers: {

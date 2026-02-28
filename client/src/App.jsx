@@ -3,6 +3,7 @@ import styles from "./App.module.css";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import API from "../api";
 
 import {
   getVideos,
@@ -35,7 +36,7 @@ function App() {
 
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/auth/avatar",
+        `${API}/api/auth/avatar`,
         { avatar: base64Image },
         {
           headers: {
@@ -110,7 +111,7 @@ try {
 const handleLogout = async () => {
   try {
     await axios.post(
-      "http://localhost:5000/api/auth/logout",
+      `${API}/api/auth/logout`,
       {},
       {
         headers: {

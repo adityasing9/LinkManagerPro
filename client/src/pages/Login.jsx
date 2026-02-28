@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+
+import API from "../api";
+
 import axios from "axios";
 import "./Auth.css";
 import { motion } from "framer-motion";
@@ -19,10 +22,8 @@ function Login() {
     setError("");
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        { email, password }
-      );
+      const res = await axios.post(`${API}/api/auth/login`, { email, password });
+      
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
@@ -132,8 +133,7 @@ function Login() {
               const decoded = jwtDecode(credentialResponse.credential);
 
               try {
-                const res = await axios.post(
-                  "http://localhost:5000/api/auth/google",
+                const res = await axios.post(`${API}/api/auth/google`, 
                   {
                     name: decoded.name,
                     email: decoded.email,

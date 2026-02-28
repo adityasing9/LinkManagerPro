@@ -3,7 +3,7 @@ import styles from "./App.module.css";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
-import API from "../api";
+import API from "./api";
 
 import {
   getVideos,

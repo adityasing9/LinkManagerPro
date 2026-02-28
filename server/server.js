@@ -15,7 +15,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://link-manager-pro-dhpg.vercel.app",
+      "https://link-manager-pro-b4zv.vercel.app"
     ],
     credentials: true,
   })

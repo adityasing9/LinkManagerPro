@@ -179,7 +179,7 @@ Hosted on **MongoDB Atlas**
 
 **Aaditya Singh**
 
-- GitHub: https://github.com/your-username  
+- GitHub: https://github.com/adityasing9  
 - LinkedIn: Add your LinkedIn here  
 
 ---
